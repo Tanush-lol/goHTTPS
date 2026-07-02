@@ -1,12 +1,3 @@
-// Command client connects to the goHTTPS chat server with a native (Gio) GUI.
-//
-// On startup the user picks a communication mode (HTTPS or raw TLS socket), the
-// server host/port and a display name, then chats with the server admin. The
-// underlying transport is hidden behind clientconn.Conn, so the chat screen is
-// identical for both modes.
-//
-// The connection uses InsecureSkipVerify because the server presents a freshly
-// generated self-signed certificate; fine for this local demo, not for real use.
 package main
 
 import (
@@ -59,20 +50,20 @@ type ui struct {
 	input   widget.Editor
 	sendBtn widget.Clickable
 
-	// mu guards state shared between the GUI goroutine and recvLoop.
+	
 	mu        sync.Mutex
 	connected bool
 	lines     []gui.Line
 }
 
-// addLine appends a chat line under the lock.
+
 func (u *ui) addLine(l gui.Line) {
 	u.mu.Lock()
 	u.lines = append(u.lines, l)
 	u.mu.Unlock()
 }
 
-// snapshotLines returns a copy of the lines for rendering.
+
 func (u *ui) snapshotLines() []gui.Line {
 	u.mu.Lock()
 	defer u.mu.Unlock()
@@ -216,7 +207,7 @@ func (u *ui) recvLoop() {
 			u.redraw()
 		case <-done:
 			u.mu.Lock()
-			u.connected = false // window will show the setup screen again
+			u.connected = false 
 			u.mu.Unlock()
 			u.redraw()
 			return
@@ -276,7 +267,6 @@ func (u *ui) send() {
 	u.input.SetText("")
 }
 
-// ---- helpers ----------------------------------------------------------------
 
 func spacer(dp int) layout.Widget {
 	return func(gtx layout.Context) layout.Dimensions {
