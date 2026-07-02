@@ -1,9 +1,3 @@
-// Command server runs the goHTTPS chat server with a native (Gio) GUI.
-//
-// The admin first picks a communication mode (HTTPS or raw TLS socket) and a
-// port, then lands on a chat console: a roster of connected clients showing who
-// is online/offline, and a per-client message pane for talking to whichever
-// client is selected. Both transports are backed by the same chat.Hub.
 package main
 
 import (
