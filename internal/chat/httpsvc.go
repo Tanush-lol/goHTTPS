@@ -8,18 +8,10 @@ import (
 	"goHTTPS/internal/proto"
 )
 
-// pollWait is how long a /poll request blocks waiting for an admin message
-// before returning empty so the client can re-poll (also acts as a heartbeat).
+
 const pollWait = 25 * time.Second
 
-// HTTPHandler returns the long-poll chat API for HTTPS mode, backed by h.
-//
-// Endpoints:
-//
-//	POST /register  body {"name":...}        -> {"id":...}
-//	GET  /poll?id=...                        -> {"messages":[...]}  (blocks up to pollWait)
-//	POST /send?id=...  body {"text":...}      -> 204
-//	POST /bye?id=...                         -> 204
+
 func (h *Hub) HTTPHandler() http.Handler {
 	mux := http.NewServeMux()
 
